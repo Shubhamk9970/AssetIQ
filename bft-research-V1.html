@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BFT Research</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0D0D0D;--s1:#111111;--s2:#161616;--s3:#1E1E1E;--b:#2A2A2A;--o:#E8692A;--g:#4ADE80;--r:#F87171;--t:#FFFFFF;--m:#666;--m2:#3A3A3A;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;}
+body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:14px;display:flex;height:100vh;overflow:hidden;}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:#1a1a1a;}
+::-webkit-scrollbar-thumb{background:#444;border-radius:2px;}
+
+/* ── COL 1 ── */
+#c1{width:252px;min-width:252px;background:var(--s1);border-right:1px solid var(--b);display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+.c1-head{padding:13px 14px 11px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--b);}
+.appname{font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px;}
+.appname .o{color:var(--o);}
+.hicons{display:flex;gap:9px;color:var(--m);}
+.hicons svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;cursor:pointer;}
+.new-btn{margin:9px 10px;background:var(--s3);border:1px solid var(--b);border-radius:8px;padding:8px 12px;cursor:pointer;display:flex;align-items:center;gap:7px;color:var(--t);font-family:var(--sans);font-size:12px;transition:background 150ms;}
+.new-btn:hover{background:#262626;}
+.new-btn .plus{color:var(--o);font-size:15px;}
+.c1-nav{padding:4px 0;}
+.ni{display:flex;align-items:center;gap:8px;padding:7px 14px;cursor:pointer;color:var(--m);font-size:12px;transition:background 150ms;border-left:3px solid transparent;}
+.ni:hover{background:#181818;color:var(--t);}
+.ni.act{color:var(--t);border-left-color:var(--o);padding-left:11px;background:#181818;}
+.ni.act svg{stroke:var(--o);}
+.ni svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0;}
+.sdiv{border-top:1px solid var(--b);margin:5px 0;}
+.slabel{padding:9px 14px 3px;font-size:10px;font-weight:600;letter-spacing:1.1px;color:var(--m2);text-transform:uppercase;}
+.pi{display:flex;align-items:center;gap:8px;padding:7px 14px;cursor:pointer;color:var(--m);font-size:12px;transition:background 150ms;border-left:3px solid transparent;}
+.pi:hover{background:#181818;color:var(--t);}
+.pi.act{color:var(--t);border-left-color:var(--o);padding-left:11px;}
+.pi.act svg{stroke:var(--o);}
+.pi svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0;}
+.pbadge{margin-left:auto;background:var(--o);color:#000;font-size:9px;font-weight:700;font-family:var(--mono);padding:1px 5px;border-radius:8px;}
+.wl{flex:1;overflow-y:auto;}
+.sr{padding:7px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background 150ms;border-left:3px solid transparent;}
+.sr:hover{background:#181818;}
+.sr.act{background:#181818;border-left-color:var(--o);}
+.sr.act{padding-left:11px;}
+.sr .tk{font-family:var(--mono);font-weight:600;font-size:12px;color:var(--o);}
+.sr .co{font-size:10px;color:var(--m);margin-top:1px;}
+.sr .pr{font-family:var(--mono);font-size:12px;text-align:right;}
+.sr .ch{font-family:var(--mono);font-size:10px;margin-top:1px;text-align:right;}
+.pos{color:var(--g);}
+.neg{color:var(--r);}
+.c1-bot{border-top:1px solid var(--b);padding:9px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;flex-shrink:0;}
+.c1-bot:hover{background:#181818;}
+.av{width:26px;height:26px;border-radius:50%;background:var(--o);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#000;flex-shrink:0;}
+.uinfo{flex:1;}
+.uname{font-size:12px;font-weight:500;}
+.uplan{font-size:10px;color:var(--m);}
+.bicons{display:flex;gap:7px;color:var(--m);}
+.bicons svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;}
+
+/* ── COL 2 ── */
+#c2{width:210px;min-width:210px;background:var(--s2);border-right:1px solid var(--b);display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+.c2h{padding:14px 12px 10px;border-bottom:1px solid var(--b);}
+.c2sl{font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px;}
+.c2sn{font-size:20px;font-weight:700;letter-spacing:-.5px;}
+.c2div{border-top:1px solid var(--b);margin:10px 0 0;}
+.c2nav{padding:6px 0;border-bottom:1px solid var(--b);}
+.c2nl{padding:6px 12px 2px;font-size:9px;color:var(--m2);text-transform:uppercase;letter-spacing:1px;font-weight:600;}
+.c2ni{display:flex;align-items:center;gap:7px;padding:7px 12px;cursor:pointer;color:var(--m);font-size:12px;transition:background 150ms;border-left:3px solid transparent;}
+.c2ni:hover{background:#1C1C1C;color:var(--t);}
+.c2ni.act{color:var(--t);border-left-color:var(--o);padding-left:9px;background:#1A1A1A;}
+.c2ni.act svg{stroke:var(--o);}
+.c2ni svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0;}
+.gbadge{margin-left:auto;background:var(--s3);border:1px solid var(--b);border-radius:8px;font-size:9px;font-family:var(--mono);color:var(--m);padding:1px 5px;}
+.c2st{padding:10px 12px 2px;font-size:12px;font-weight:600;}
+.c2ss{padding:0 12px 6px;font-size:10px;color:var(--m);}
+.c2sess{flex:1;overflow-y:auto;}
+.sesi{padding:8px 12px;cursor:pointer;transition:background 150ms;border-bottom:1px solid #181818;}
+.sesi:hover{background:#1C1C1C;}
+.sesi.act{background:#222;}
+.sesi .st{font-size:12px;color:var(--t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.sesi .sd{font-size:10px;color:var(--m);}
+
+/* DATA PANEL in col2 */
+.data-panel{display:none;flex-direction:column;overflow-y:auto;flex:1;}
+.data-panel.show{display:flex;}
+.dp-section{padding:10px 12px;border-bottom:1px solid var(--b);}
+.dp-section-title{font-size:9px;color:var(--m2);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:7px;}
+.dp-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;}
+.dp-label{font-size:10px;color:var(--m);}
+.dp-val{font-family:var(--mono);font-size:11px;color:var(--t);}
+.dp-val.o{color:var(--o);}
+.dp-val.g{color:var(--g);}
+.dp-val.r{color:var(--r);}
+
+/* ── COL 3 ── */
+#c3{flex:1;background:var(--bg);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;}
+.topbar{height:52px;background:var(--s1);border-bottom:1px solid var(--b);display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;}
+.bc{font-family:var(--mono);font-size:10px;color:var(--m);}
+.spill{background:var(--s3);border:1px solid var(--b);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600;font-family:var(--mono);display:flex;align-items:center;gap:5px;}
+.spill span{color:var(--o);}
+.tbsp{flex:1;}
+.pg{display:flex;gap:3px;}
+.pl{background:var(--s3);border:1px solid var(--b);border-radius:20px;padding:3px 9px;font-size:11px;cursor:pointer;font-family:var(--mono);color:var(--m);transition:all 150ms;}
+.pl:hover{color:var(--t);border-color:#444;}
+.pl.act{background:var(--o);color:#000;border-color:var(--o);font-weight:600;}
+.dp2{background:var(--s3);border:1px solid var(--b);border-radius:20px;padding:3px 9px;font-size:11px;cursor:pointer;font-family:var(--sans);color:var(--m);transition:all 150ms;display:flex;align-items:center;gap:3px;}
+.dp2:hover{color:var(--t);}
+.dp2.act{color:var(--o);}
+.dp2 .ck{color:var(--o);font-size:10px;}
+.fbtn{background:transparent;border:1px solid var(--b);border-radius:7px;padding:4px 10px;color:var(--m);font-family:var(--sans);font-size:11px;cursor:pointer;transition:all 150ms;}
+.fbtn:hover{color:var(--t);border-color:#444;}
+
+/* MAIN */
+#mc{flex:1;overflow:hidden;position:relative;display:flex;flex-direction:column;}
+
+/* HOME */
+#vh{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:32px 20px;overflow-y:auto;}
+.hico{font-size:42px;color:var(--o);margin-bottom:16px;}
+.hgreet{font-size:32px;font-weight:300;letter-spacing:-1px;margin-bottom:20px;}
+.hcard{background:var(--s2);border:1px solid var(--b);border-radius:12px;padding:9px 14px;margin-bottom:16px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;max-width:660px;width:100%;}
+.hinp-wrap{max-width:660px;width:100%;}
+.hinp{width:100%;background:var(--s2);border:1px solid var(--b);border-radius:14px;padding:14px 16px;color:var(--t);font-family:var(--sans);font-size:14px;resize:none;outline:none;transition:border 150ms;}
+.hinp:focus{border-color:#444;}
+.hinp::placeholder{color:var(--m);}
+.inp-bot{display:flex;align-items:center;padding:9px 16px 11px;gap:9px;}
+.msel{margin-left:auto;background:var(--s3);border:1px solid var(--b);border-radius:8px;padding:3px 9px;color:var(--m);font-size:11px;font-family:var(--mono);cursor:pointer;}
+.qcs{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px;justify-content:center;}
+.qc{background:var(--s2);border:1px solid var(--b);border-radius:20px;padding:6px 13px;font-size:12px;color:var(--m);cursor:pointer;transition:all 150ms;}
+.qc:hover{color:var(--t);border-color:#444;}
+
+/* CHAT */
+#vch{display:none;flex-direction:column;flex:1;overflow:hidden;}
+.msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px;}
+.msgs-inner{max-width:720px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:16px;}
+.mu{display:flex;justify-content:flex-end;}
+.mub{background:var(--s3);border-radius:12px;padding:11px 15px;max-width:76%;font-size:13px;line-height:1.6;}
+.ma{display:flex;gap:10px;}
+.adot{width:22px;height:22px;border-radius:50%;background:var(--o);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#000;flex-shrink:0;margin-top:2px;}
+.at{flex:1;font-size:13px;line-height:1.7;color:#ddd;}
+.at p{margin-bottom:9px;}
+.at strong{color:var(--t);font-weight:500;}
+.cp{display:inline-flex;align-items:center;gap:3px;background:#252525;border:1px solid var(--b);border-radius:20px;padding:2px 9px;font-size:10px;font-family:var(--mono);color:var(--o);cursor:pointer;margin:0 2px;transition:background 150ms;}
+.cp:hover{background:#303030;}
+.cib{border-top:1px solid var(--b);padding:10px 14px;background:var(--bg);flex-shrink:0;}
+.cii{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:8px;}
+.ci{flex:1;background:var(--s2);border:1px solid var(--b);border-radius:14px;padding:10px 14px;color:var(--t);font-family:var(--sans);font-size:13px;outline:none;transition:border 150ms;}
+.ci:focus{border-color:#444;}
+.ci::placeholder{color:var(--m);}
+.send-btn{background:var(--o);border:none;border-radius:8px;padding:8px 14px;color:#000;font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;}
+
+/* DASHBOARD */
+#vd{display:none;padding:16px;overflow-y:auto;flex:1;}
+.dh{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:13px 16px;margin-bottom:13px;}
+.dsn{font-size:18px;font-weight:700;margin-bottom:2px;}
+.dssub{font-size:11px;color:var(--m);font-family:var(--mono);margin-bottom:10px;}
+.dqr{display:flex;gap:16px;flex-wrap:wrap;}
+.dqi{display:flex;flex-direction:column;gap:2px;}
+.dql{font-size:9px;color:var(--m);text-transform:uppercase;letter-spacing:.6px;}
+.dqv{font-family:var(--mono);font-size:12px;font-weight:600;}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.dc{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:13px 14px;}
+.dct{font-size:12px;font-weight:600;margin-bottom:10px;}
+.ft{width:100%;border-collapse:collapse;font-size:11px;}
+.ft th{color:var(--m);font-weight:500;text-align:right;padding:3px 6px;font-family:var(--mono);}
+.ft th:first-child{text-align:left;}
+.ft td{padding:4px 6px;border-bottom:1px solid #1A1A1A;font-family:var(--mono);}
+.ft td:first-child{color:var(--m);font-family:var(--sans);font-size:11px;}
+.ft td:not(:first-child){text-align:right;}
+.ft tr:nth-child(even){background:#141414;}
+.ni2{padding:7px 0;border-bottom:1px solid #1A1A1A;}
+.ni2:last-child{border:none;}
+.nt{font-size:11px;line-height:1.4;margin-bottom:3px;}
+.nm{display:flex;gap:7px;align-items:center;}
+.ns{font-size:10px;color:var(--m);}
+.sp{font-size:9px;border-radius:8px;padding:1px 6px;font-family:var(--mono);}
+.sp-p{background:#1A3A1A;color:var(--g);}
+.sp-n{background:#3A1A1A;color:var(--r);}
+.sp-u{background:var(--s3);color:var(--m);}
+.shbw{margin-bottom:7px;}
+.shbl{display:flex;justify-content:space-between;margin-bottom:3px;font-size:11px;}
+.shbl span:first-child{color:var(--m);}
+.shbt{height:5px;background:#1A1A1A;border-radius:3px;overflow:hidden;}
+.shbf{height:100%;border-radius:3px;}
+.ar{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.arl{font-size:11px;color:var(--m);width:58px;font-size:10px;}
+.arb{flex:1;height:5px;background:#1A1A1A;border-radius:3px;overflow:hidden;}
+.arbf{height:100%;border-radius:3px;}
+.arc{font-family:var(--mono);font-size:11px;width:18px;text-align:right;}
+.deb-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+.dbh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid var(--b);}
+.dbull .dbh{color:var(--g);}
+.dbear .dbh{color:var(--r);}
+.drisk .dbh{color:#FBBF24;}
+.dbp{font-size:10px;color:var(--m);margin-bottom:4px;line-height:1.4;padding-left:7px;border-left:2px solid var(--b);}
+.dbull .dbp{border-left-color:var(--g);}
+.dbear .dbp{border-left-color:var(--r);}
+.drisk .dbp{border-left-color:#FBBF24;}
+.synth{background:#1A1A1A;border-radius:7px;padding:9px 11px;font-size:11px;color:#bbb;line-height:1.6;border-left:3px solid var(--o);}
+
+/* RAGAS */
+#vr{display:none;padding:16px;overflow-y:auto;flex:1;}
+.rg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+.rc{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:12px;}
+.rm{font-size:9px;color:var(--m);margin-bottom:5px;text-transform:uppercase;letter-spacing:.6px;}
+.rs{font-size:24px;font-weight:700;font-family:var(--mono);margin-bottom:5px;}
+.rb{height:3px;background:#1A1A1A;border-radius:2px;margin-bottom:7px;}
+.rbf{height:100%;border-radius:2px;}
+.rbdg{display:inline-block;font-size:9px;font-family:var(--mono);font-weight:700;letter-spacing:.7px;padding:2px 7px;border-radius:4px;}
+.rpass{background:#1A3A1A;color:var(--g);}
+.rwarn{background:#3A2A1A;color:#FBBF24;}
+.rtw{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:13px;margin-bottom:14px;}
+.rtt{width:100%;border-collapse:collapse;font-size:11px;}
+.rtt th{color:var(--m);font-weight:500;padding:5px 8px;text-align:left;border-bottom:1px solid var(--b);font-family:var(--mono);}
+.rtt td{padding:6px 8px;border-bottom:1px solid #1A1A1A;font-family:var(--mono);}
+.rtt tr:last-child td{border:none;}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.ck2{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:12px;}
+.ckl{font-size:10px;color:var(--m);margin-bottom:5px;}
+.ckv{font-size:18px;font-weight:700;font-family:var(--mono);}
+
+/* COMPARE */
+#vcmp{display:none;padding:16px;overflow-y:auto;flex:1;}
+.cmpw{background:var(--s2);border:1px solid var(--b);border-radius:8px;overflow:hidden;}
+.cmph{display:grid;grid-template-columns:160px 1fr 1fr;}
+.cmplc{padding:12px 14px;background:#131313;}
+.cmpsc{padding:12px 14px;text-align:center;border-left:1px solid var(--b);}
+.cmpsc.act{border-top:2px solid var(--o);}
+.cmpn{font-size:14px;font-weight:700;font-family:var(--mono);}
+.cmpsb{font-size:10px;color:var(--m);}
+.cmpp{font-size:17px;font-weight:700;font-family:var(--mono);color:var(--o);margin-top:3px;}
+.cmptable{width:100%;border-collapse:collapse;}
+.cmptable .csh{background:#111;padding:5px 14px;font-size:9px;color:var(--m2);text-transform:uppercase;letter-spacing:.7px;font-weight:600;}
+.cmptable td{padding:7px 14px;border-bottom:1px solid #1A1A1A;font-family:var(--mono);font-size:11px;border-left:1px solid var(--b);}
+.cmptable td:first-child{font-family:var(--sans);color:var(--m);border-left:none;font-size:11px;}
+.cmptable tr:nth-child(even) td{background:#141414;}
+.cmptable .hl{color:var(--o);}
+
+/* RIGHT DRAWER */
+#rd{position:absolute;right:0;top:0;width:280px;height:100%;background:var(--s1);border-left:1px solid var(--b);transform:translateX(100%);transition:transform 240ms ease;z-index:50;display:flex;flex-direction:column;}
+#rd.open{transform:translateX(0);}
+.rdh{padding:12px 14px;border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between;}
+.rdt{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--m);}
+.rdc{background:none;border:none;color:var(--m);cursor:pointer;font-size:18px;line-height:1;}
+.rdb{padding:12px 14px;overflow-y:auto;flex:1;}
+.rddn{font-size:12px;font-weight:600;margin-bottom:2px;}
+.rdpg{font-size:10px;color:var(--m);font-family:var(--mono);margin-bottom:10px;}
+.rdchunk{background:#1A1A1A;border-radius:6px;padding:9px 11px;font-size:11px;color:#ccc;line-height:1.6;margin-bottom:12px;font-family:var(--mono);}
+.rdat{font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.7px;margin-bottom:7px;}
+.ai2{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid #1A1A1A;cursor:pointer;}
+.ai2:hover{opacity:.8;}
+.aico{font-size:14px;}
+.ain{font-size:11px;}
+.aim{font-size:10px;color:var(--m);font-family:var(--mono);margin-left:auto;}
+
+/* SOURCE PANEL */
+.src-tab{transition:color 150ms,border-color 150ms;}
+.src-tab:hover{color:var(--t)!important;}
+.src-item{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-bottom:1px solid #181818;cursor:pointer;transition:background 150ms;}
+.src-item:hover{background:#1C1C1C;}
+.src-icon{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;font-family:var(--mono);flex-shrink:0;letter-spacing:.5px;}
+.src-pdf{background:#2A1A14;color:#F97316;}
+.src-data{background:#141A2A;color:#60A5FA;}
+.src-news{background:#1A2A1A;color:var(--g);}
+.src-xl{background:#142A1A;color:#34D399;}
+.src-info{flex:1;min-width:0;}
+.src-name{font-size:11px;font-weight:500;color:var(--t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.src-meta{font-size:10px;color:var(--m);font-family:var(--mono);margin-bottom:4px;}
+.src-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.src-tag{font-size:9px;background:var(--s3);border:1px solid var(--b);border-radius:4px;padding:1px 5px;color:var(--m);}
+.src-tag-live{background:#1A2A1A;border-color:#1A3A1A;color:var(--g);}
+.src-status{font-size:12px;flex-shrink:0;margin-top:2px;}
+.src-status.ok{color:var(--g);}
+.src-status.warn{color:#FBBF24;}
+
+/* LOADING MODAL */
+#lm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+#lm.show{display:flex;}
+.lbox{background:var(--s2);border:1px solid var(--b);border-radius:12px;padding:22px 26px;width:420px;max-height:55vh;overflow-y:auto;}
+.ltitle{font-size:11px;color:var(--m);font-family:var(--mono);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
+.llines{font-family:var(--mono);font-size:11px;}
+.ll{margin-bottom:3px;}
+</style>
+</head>
+<body>
+
+<!-- ── COL 1 ── -->
+<div id="c1">
+  <div class="c1-head">
+    <div class="appname"><span class="o">◈</span> BFT Research</div>
+    <div class="hicons">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    </div>
+  </div>
+
+  <button class="new-btn" onclick="goHome()">
+    <span class="plus">+</span> New Analysis
+  </button>
+
+  <div class="c1-nav">
+    <div class="ni" onclick="goHome()">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Chats
+    </div>
+    <div class="ni" onclick="goHome()">
+      <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      Projects
+    </div>
+  </div>
+
+  <div class="sdiv"></div>
+  <div class="slabel">Workspace</div>
+  <div class="pi act" id="pi-portfolio" onclick="setPi('portfolio')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    Portfolio
+    <span class="pbadge">8</span>
+  </div>
+  <div class="pi" id="pi-ragas" onclick="setPi('ragas');showView('ragas')">
+    <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    RAGAS Metrics
+  </div>
+  <div class="pi" id="pi-compare" onclick="setPi('compare');showView('compare')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    Compare
+  </div>
+  <div class="pi" id="pi-design">
+    <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+    Design
+  </div>
+
+  <div class="sdiv"></div>
+  <div class="slabel">Watchlist</div>
+  <div class="wl">
+    <div class="sr act" onclick="switchStock(this,'RELIANCE','Reliance','RELIANCE.NS','₹2,847','▲1.22%','pos')">
+      <div><div class="tk">RELIANCE</div><div class="co">Reliance Ind.</div></div>
+      <div><div class="pr">₹2,847</div><div class="ch pos">▲1.22%</div></div>
+    </div>
+    <div class="sr" onclick="switchStock(this,'TCS','TCS','TCS.NS','₹3,387','▼0.41%','neg')">
+      <div><div class="tk">TCS</div><div class="co">Tata Consultancy</div></div>
+      <div><div class="pr">₹3,387</div><div class="ch neg">▼0.41%</div></div>
+    </div>
+    <div class="sr" onclick="switchStock(this,'INFY','Infosys','INFY.NS','₹1,688','▲2.13%','pos')">
+      <div><div class="tk">INFY</div><div class="co">Infosys Ltd.</div></div>
+      <div><div class="pr">₹1,688</div><div class="ch pos">▲2.13%</div></div>
+    </div>
+    <div class="sr" onclick="switchStock(this,'HDFCBANK','HDFC Bank','HDFCBANK.NS','₹1,592','▼0.78%','neg')">
+      <div><div class="tk">HDFCBANK</div><div class="co">HDFC Bank Ltd.</div></div>
+      <div><div class="pr">₹1,592</div><div class="ch neg">▼0.78%</div></div>
+    </div>
+    <div class="sr" onclick="switchStock(this,'ADANIENT','Adani Ent.','ADANIENT.NS','₹2,994','▲1.87%','pos')">
+      <div><div class="tk">ADANIENT</div><div class="co">Adani Enterprises</div></div>
+      <div><div class="pr">₹2,994</div><div class="ch pos">▲1.87%</div></div>
+    </div>
+  </div>
+
+  <div class="c1-bot">
+    <div class="av">S</div>
+    <div class="uinfo"><div class="uname">Shubham</div><div class="uplan">Free plan</div></div>
+    <div class="bicons">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── COL 2 ── -->
+<div id="c2">
+  <div class="c2h">
+    <div class="c2sl">Stock name</div>
+    <div class="c2sn" id="c2name">Reliance</div>
+    <div class="c2div"></div>
+  </div>
+
+  <div class="c2nav">
+    <div class="c2nl">Navigation</div>
+    <div class="c2ni" id="c2n-dashboard" onclick="setC2Nav('dashboard')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+    <div class="c2ni act" id="c2n-chat" onclick="setC2Nav('chat')">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      AI Chat
+      <span class="gbadge">Sonnet 4.6</span>
+    </div>
+    <div class="c2ni" id="c2n-debate" onclick="setC2Nav('debate')">
+      <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Agent Debate
+    </div>
+    <div class="c2ni" id="c2n-sources" onclick="setC2Nav('sources')">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Sources
+      <span class="gbadge" style="color:var(--g);border-color:#1A3A1A;background:#1A2A1A;">12</span>
+    </div>
+  </div>
+
+  <!-- Chat sessions list (shown when AI Chat is active) -->
+  <div id="c2-chat-panel" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+    <div class="c2st">Chats</div>
+    <div class="c2ss">Analysis sessions</div>
+    <div class="c2sess">
+      <div class="sesi act" onclick="loadSession(this,'Revenue Analysis Q4')">
+        <div class="st">Revenue Analysis Q4</div><div class="sd">Today</div>
+      </div>
+      <div class="sesi" onclick="loadSession(this,'Debt Structure Deep Dive')">
+        <div class="st">Debt Structure Deep Dive</div><div class="sd">Yesterday</div>
+      </div>
+      <div class="sesi" onclick="loadSession(this,'Management Commentary')">
+        <div class="st">Management Commentary</div><div class="sd">23 Jun</div>
+      </div>
+      <div class="sesi" onclick="loadSession(this,'Competitor Comparison')">
+        <div class="st">Competitor Comparison</div><div class="sd">21 Jun</div>
+      </div>
+      <div class="sesi" onclick="loadSession(this,'Risk Assessment 2024')">
+        <div class="st">Risk Assessment 2024</div><div class="sd">18 Jun</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fetched data panel (shown when Dashboard is active) -->
+  <div id="c2-data-panel" class="data-panel">
+    <div class="dp-section">
+      <div class="dp-section-title">Live Quote</div>
+      <div class="dp-row"><span class="dp-label">Price</span><span class="dp-val o">₹2,847.35</span></div>
+      <div class="dp-row"><span class="dp-label">Change</span><span class="dp-val g">▲ +34.20 (+1.22%)</span></div>
+      <div class="dp-row"><span class="dp-label">Open</span><span class="dp-val">₹2,813.00</span></div>
+      <div class="dp-row"><span class="dp-label">High</span><span class="dp-val">₹2,859.40</span></div>
+      <div class="dp-row"><span class="dp-label">Low</span><span class="dp-val">₹2,808.10</span></div>
+      <div class="dp-row"><span class="dp-label">Prev Close</span><span class="dp-val">₹2,813.15</span></div>
+      <div class="dp-row"><span class="dp-label">Volume</span><span class="dp-val">48,24,310</span></div>
+      <div class="dp-row"><span class="dp-label">Avg Vol 10D</span><span class="dp-val">52,71,000</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Valuation</div>
+      <div class="dp-row"><span class="dp-label">Mkt Cap</span><span class="dp-val">₹19.27L Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Ent. Value</span><span class="dp-val">₹20.46L Cr</span></div>
+      <div class="dp-row"><span class="dp-label">P/E (TTM)</span><span class="dp-val">26.4x</span></div>
+      <div class="dp-row"><span class="dp-label">P/E (Fwd)</span><span class="dp-val">22.8x</span></div>
+      <div class="dp-row"><span class="dp-label">PEG Ratio</span><span class="dp-val">1.40</span></div>
+      <div class="dp-row"><span class="dp-label">Price/Book</span><span class="dp-val">2.16x</span></div>
+      <div class="dp-row"><span class="dp-label">Price/Sales</span><span class="dp-val">2.14x</span></div>
+      <div class="dp-row"><span class="dp-label">EV/EBITDA</span><span class="dp-val">12.7x</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Per Share</div>
+      <div class="dp-row"><span class="dp-label">EPS (TTM)</span><span class="dp-val">₹107.8</span></div>
+      <div class="dp-row"><span class="dp-label">EPS (Fwd)</span><span class="dp-val">₹124.9</span></div>
+      <div class="dp-row"><span class="dp-label">52W High</span><span class="dp-val">₹3,024.90</span></div>
+      <div class="dp-row"><span class="dp-label">52W Low</span><span class="dp-val">₹2,220.30</span></div>
+      <div class="dp-row"><span class="dp-label">52W Return</span><span class="dp-val g">+21.4%</span></div>
+      <div class="dp-row"><span class="dp-label">Beta</span><span class="dp-val">1.08</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Dividends</div>
+      <div class="dp-row"><span class="dp-label">Div Yield</span><span class="dp-val">0.35%</span></div>
+      <div class="dp-row"><span class="dp-label">Payout Ratio</span><span class="dp-val">9.2%</span></div>
+      <div class="dp-row"><span class="dp-label">Ex-Div Date</span><span class="dp-val">12 Aug 25</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Financials TTM</div>
+      <div class="dp-row"><span class="dp-label">Revenue</span><span class="dp-val">₹9.02L Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Gross Profit</span><span class="dp-val">₹2.29L Cr</span></div>
+      <div class="dp-row"><span class="dp-label">EBITDA</span><span class="dp-val">₹1.70L Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Net Income</span><span class="dp-val">₹79,020 Cr</span></div>
+      <div class="dp-row"><span class="dp-label">FCF</span><span class="dp-val">₹48,910 Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Op. Cash Flow</span><span class="dp-val">₹1,04,200 Cr</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Balance Sheet</div>
+      <div class="dp-row"><span class="dp-label">Total Debt</span><span class="dp-val">₹3,12,441 Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Cash & Eq.</span><span class="dp-val">₹1,93,396 Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Net Debt</span><span class="dp-val">₹1,19,045 Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Debt/Equity</span><span class="dp-val">0.43x</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Returns & Margins</div>
+      <div class="dp-row"><span class="dp-label">ROE</span><span class="dp-val g">10.9%</span></div>
+      <div class="dp-row"><span class="dp-label">ROA</span><span class="dp-val">5.8%</span></div>
+      <div class="dp-row"><span class="dp-label">Profit Margin</span><span class="dp-val">8.8%</span></div>
+      <div class="dp-row"><span class="dp-label">Op. Margin</span><span class="dp-val">11.4%</span></div>
+      <div class="dp-row"><span class="dp-label">EBITDA Margin</span><span class="dp-val">18.9%</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Ownership</div>
+      <div class="dp-row"><span class="dp-label">Shares Out.</span><span class="dp-val">676.8 Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Float</span><span class="dp-val">335.4 Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Promoter</span><span class="dp-val o">50.33%</span></div>
+      <div class="dp-row"><span class="dp-label">FII</span><span class="dp-val">26.14%</span></div>
+      <div class="dp-row"><span class="dp-label">DII</span><span class="dp-val">14.22%</span></div>
+      <div class="dp-row"><span class="dp-label">Short Ratio</span><span class="dp-val">1.4</span></div>
+      <div class="dp-row"><span class="dp-label">Delivery %</span><span class="dp-val">47.8%</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">NSE / Exchange</div>
+      <div class="dp-row"><span class="dp-label">Circuit ↑</span><span class="dp-val g">₹3,132</span></div>
+      <div class="dp-row"><span class="dp-label">Circuit ↓</span><span class="dp-val r">₹2,562</span></div>
+      <div class="dp-row"><span class="dp-label">OI (Fut)</span><span class="dp-val">2,84,12,500</span></div>
+      <div class="dp-row"><span class="dp-label">PCR</span><span class="dp-val">0.87</span></div>
+      <div class="dp-row"><span class="dp-label">Max Pain</span><span class="dp-val">₹2,800</span></div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-title">Analyst Consensus</div>
+      <div class="dp-row"><span class="dp-label">Target (Mean)</span><span class="dp-val o">₹3,240</span></div>
+      <div class="dp-row"><span class="dp-label">Target (High)</span><span class="dp-val g">₹3,680</span></div>
+      <div class="dp-row"><span class="dp-label">Target (Low)</span><span class="dp-val r">₹2,600</span></div>
+      <div class="dp-row"><span class="dp-label">Strong Buy</span><span class="dp-val g">21</span></div>
+      <div class="dp-row"><span class="dp-label">Buy</span><span class="dp-val g">10</span></div>
+      <div class="dp-row"><span class="dp-label">Hold</span><span class="dp-val">5</span></div>
+      <div class="dp-row"><span class="dp-label">Sell</span><span class="dp-val r">2</span></div>
+      <div class="dp-row"><span class="dp-label">Next Earnings</span><span class="dp-val">22 Jul 2025</span></div>
+    </div>
+    <div class="dp-section" style="border-bottom:none;">
+      <div class="dp-section-title">RAG Extracted</div>
+      <div class="dp-row"><span class="dp-label">Rev Growth YoY</span><span class="dp-val g">+3.1%</span></div>
+      <div class="dp-row"><span class="dp-label">Capex Guide FY25</span><span class="dp-val o">₹1,20,000 Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Mgmt EBITDA Guide</span><span class="dp-val">+15–18% YoY</span></div>
+      <div class="dp-row"><span class="dp-label">Promoter Pledge</span><span class="dp-val g">0%</span></div>
+      <div class="dp-row"><span class="dp-label">Contingent Liab.</span><span class="dp-val r">₹18,340 Cr</span></div>
+      <div class="dp-row"><span class="dp-label">Chunks Indexed</span><span class="dp-val">1,842</span></div>
+    </div>
+  </div>
+
+  <!-- Sources panel -->
+  <div id="c2-sources-panel" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+    <div style="padding:10px 12px 6px;border-bottom:1px solid var(--b);flex-shrink:0;">
+      <div style="font-size:12px;font-weight:600;color:var(--t);margin-bottom:1px;">Extracted Sources</div>
+      <div style="font-size:10px;color:var(--m);">12 files · 1,842 chunks indexed</div>
+    </div>
+    <!-- mini filter tabs -->
+    <div style="display:flex;gap:0;border-bottom:1px solid var(--b);flex-shrink:0;">
+      <div class="src-tab act" onclick="filterSrc(this,'all')" style="flex:1;text-align:center;padding:7px 4px;font-size:10px;cursor:pointer;color:var(--t);border-bottom:2px solid var(--o);">All</div>
+      <div class="src-tab" onclick="filterSrc(this,'pdf')" style="flex:1;text-align:center;padding:7px 4px;font-size:10px;cursor:pointer;color:var(--m);border-bottom:2px solid transparent;">PDFs</div>
+      <div class="src-tab" onclick="filterSrc(this,'data')" style="flex:1;text-align:center;padding:7px 4px;font-size:10px;cursor:pointer;color:var(--m);border-bottom:2px solid transparent;">Data</div>
+      <div class="src-tab" onclick="filterSrc(this,'news')" style="flex:1;text-align:center;padding:7px 4px;font-size:10px;cursor:pointer;color:var(--m);border-bottom:2px solid transparent;">News</div>
+    </div>
+    <div id="src-list" style="flex:1;overflow-y:auto;">
+
+      <!-- PDFs -->
+      <div class="src-item" data-type="pdf" onclick="openDrawer('Annual Report FY2024','pg.1','Reliance Industries Limited Annual Report for Financial Year 2023–2024. Contains audited standalone and consolidated financial statements, segment performance, ESG disclosures, management discussion & analysis, and board governance report. Total pages: 312. Extracted 847 chunks covering financials, MD&A, risk factors, capex plans, and related party transactions.')">
+        <div class="src-icon src-pdf">PDF</div>
+        <div class="src-info">
+          <div class="src-name">Annual Report FY2024</div>
+          <div class="src-meta">312 pages · 847 chunks · 18.4 MB</div>
+          <div class="src-tags"><span class="src-tag">Financials</span><span class="src-tag">MD&A</span><span class="src-tag">Risks</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <div class="src-item" data-type="pdf" onclick="openDrawer('Q4 FY24 Results','pg.1','Reliance Industries Q4 FY2024 Financial Results press release. Standalone and consolidated P&L, balance sheet summary, segment-wise EBITDA, cash flow snapshot, and key operational metrics for O2C, Retail, and Jio segments. 48 pages. Extracted 124 chunks.')">
+        <div class="src-icon src-pdf">PDF</div>
+        <div class="src-info">
+          <div class="src-name">Q4 FY24 Results</div>
+          <div class="src-meta">48 pages · 124 chunks · 3.2 MB</div>
+          <div class="src-tags"><span class="src-tag">Earnings</span><span class="src-tag">Quarterly</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <div class="src-item" data-type="pdf" onclick="openDrawer('Investor Presentation Q4 FY24','pg.1','Investor presentation slides accompanying Q4 FY24 earnings. Includes segment deep dives, KPI charts, 5G rollout progress, retail store count expansion, O2C GRM trends, and 5-year financial summary. 94 slides. Extracted 198 chunks.')">
+        <div class="src-icon src-pdf">PDF</div>
+        <div class="src-info">
+          <div class="src-name">Investor Presentation Q4</div>
+          <div class="src-meta">94 slides · 198 chunks · 8.9 MB</div>
+          <div class="src-tags"><span class="src-tag">KPIs</span><span class="src-tag">Charts</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <div class="src-item" data-type="pdf" onclick="openDrawer('AGM Transcript FY24','pg.1','Transcript of the Reliance Industries 46th Annual General Meeting held on August 28, 2023. Includes Chairman speech by Mukesh Ambani, strategic announcements for Jio 5G, new energy, and retail expansion. 38 pages. Extracted 88 chunks.')">
+        <div class="src-icon src-pdf">PDF</div>
+        <div class="src-info">
+          <div class="src-name">AGM Transcript FY24</div>
+          <div class="src-meta">38 pages · 88 chunks · 1.1 MB</div>
+          <div class="src-tags"><span class="src-tag">Strategy</span><span class="src-tag">Guidance</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <div class="src-item" data-type="pdf" onclick="openDrawer('Earnings Call Transcript Q4','pg.1','Verbatim transcript of Q4 FY2024 earnings conference call with analysts. CFO V. Srikanth addresses margin guidance, capex outlook, and analyst questions on Retail EBITDA, Jio ARPU trajectory, and new energy timeline. 52 pages. Extracted 131 chunks.')">
+        <div class="src-icon src-pdf">PDF</div>
+        <div class="src-info">
+          <div class="src-name">Earnings Call Transcript Q4</div>
+          <div class="src-meta">52 pages · 131 chunks · 900 KB</div>
+          <div class="src-tags"><span class="src-tag">Mgmt Commentary</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <div class="src-item" data-type="pdf" onclick="openDrawer('SEBI Filing — LODR Q4','pg.1','NSE/BSE LODR compliance filing for Q4 FY2024. Includes audited standalone financials, related party disclosures, segment results, and certificate of compliance. Filed 26 Apr 2024.')">
+        <div class="src-icon src-pdf">PDF</div>
+        <div class="src-info">
+          <div class="src-name">SEBI Filing — LODR Q4</div>
+          <div class="src-meta">22 pages · 54 chunks · 640 KB</div>
+          <div class="src-tags"><span class="src-tag">Regulatory</span><span class="src-tag">NSE</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <div class="src-item" data-type="pdf" onclick="openDrawer('Shareholding Pattern Mar 2024','pg.1','NSE shareholding pattern filing for quarter ended March 31, 2024. Promoter: 50.33%, FII: 26.14%, DII: 14.22%, Public: 9.31%. Total shares: 676.8 crore. Promoter pledge: 0%. Filed 21 Apr 2024.')">
+        <div class="src-icon src-pdf">PDF</div>
+        <div class="src-info">
+          <div class="src-name">Shareholding Pattern Mar 2024</div>
+          <div class="src-meta">6 pages · 18 chunks · 210 KB</div>
+          <div class="src-tags"><span class="src-tag">Ownership</span><span class="src-tag">NSE</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <!-- DATA feeds -->
+      <div class="src-item" data-type="data" onclick="openDrawer('Yahoo Finance — Live Feed','Real-time','Live market data feed from Yahoo Finance (yfinance). Data points: price, OHLC, volume, P/E, EPS, market cap, 52-week range, beta, dividend yield, analyst targets, earnings date. Refreshed every 60 seconds. Last pull: 29 Jun 2025 14:38 IST.')">
+        <div class="src-icon src-data">API</div>
+        <div class="src-info">
+          <div class="src-name">Yahoo Finance — Live</div>
+          <div class="src-meta">38 data points · Live · yfinance</div>
+          <div class="src-tags"><span class="src-tag src-tag-live">● Live</span><span class="src-tag">Valuations</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <div class="src-item" data-type="data" onclick="openDrawer('NSE F&O Data','Real-time','NSE derivatives data feed. Open interest (futures): 2,84,12,500. OI change: +4.2%. Put/Call ratio: 0.87. Max pain: ₹2,800. IV Rank: 34. Data pulled from NSE public API. Refreshed every 5 minutes.')">
+        <div class="src-icon src-data">API</div>
+        <div class="src-info">
+          <div class="src-name">NSE F&amp;O Data</div>
+          <div class="src-meta">OI · PCR · IV · Max Pain · NSE API</div>
+          <div class="src-tags"><span class="src-tag src-tag-live">● Live</span><span class="src-tag">Derivatives</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <div class="src-item" data-type="data" onclick="openDrawer('NSE Bulk/Block Deals','29 Jun 2025','NSE public bulk and block deal data for RELIANCE. Last 30 days: 3 block deals totalling 1.2 crore shares. No promoter sales. Largest deal: HDFC AMC purchased 42L shares @ ₹2,801 on 12 Jun 2025.')">
+        <div class="src-icon src-data">NSE</div>
+        <div class="src-info">
+          <div class="src-name">NSE Bulk/Block Deals</div>
+          <div class="src-meta">Last 30 days · 3 deals · Public API</div>
+          <div class="src-tags"><span class="src-tag">Block Deals</span><span class="src-tag">Institutional</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <!-- NEWS -->
+      <div class="src-item" data-type="news" onclick="openDrawer('Google News RSS — RELIANCE','29 Jun 2025','Google News RSS feed for query: RELIANCE site:economictimes.com OR site:livemint.com OR site:business-standard.com. Pulled 24 headlines in last 7 days. Sentiment scored via zero-shot classification. Positive: 16, Negative: 5, Neutral: 3.')">
+        <div class="src-icon src-news">RSS</div>
+        <div class="src-info">
+          <div class="src-name">Google News RSS</div>
+          <div class="src-meta">24 articles · last 7 days · Sentiment scored</div>
+          <div class="src-tags"><span class="src-tag src-tag-live">● Live</span><span class="src-tag">Sentiment</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+      <div class="src-item" data-type="data" onclick="openDrawer('Segment Revenue Table','FY22–FY24','Extracted tabular data from Annual Report pages 84–91. Three-year segment revenue, EBITDA, and capex for O2C, Retail, Jio, Media, and New Energy. Structured into xlsx. 6 sheets, 18 tables.')">
+        <div class="src-icon src-xl">XLS</div>
+        <div class="src-info">
+          <div class="src-name">Segment Revenue Table</div>
+          <div class="src-meta">6 sheets · 18 tables · FY22–FY24</div>
+          <div class="src-tags"><span class="src-tag">Extracted</span><span class="src-tag">Tabular</span></div>
+        </div>
+        <div class="src-status ok">✓</div>
+      </div>
+
+    </div><!-- end src-list -->
+
+    <!-- bottom summary bar -->
+    <div style="border-top:1px solid var(--b);padding:8px 12px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;">
+      <span style="font-size:10px;color:var(--m);">1,842 chunks · avg 512 tok</span>
+      <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--g);">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--g);display:inline-block;"></span>All indexed
+      </div>
+    </div>
+  </div>
+
+  <!-- Agent debate panel in col2 -->
+  <div id="c2-debate-panel" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+    <div class="c2st">Agent Debate</div>
+    <div class="c2ss">Live bull/bear/risk agents</div>
+    <div style="flex:1;overflow-y:auto;padding:10px 12px;">
+      <div style="background:#1A2A1A;border-radius:7px;padding:10px;margin-bottom:8px;">
+        <div style="font-size:10px;color:var(--g);font-weight:700;margin-bottom:5px;">🐂 BULL</div>
+        <div style="font-size:11px;color:#aaa;line-height:1.5;">Jio ARPU upgrade cycle. Retail GMV doubling. FCF inflection FY25–26. Disney-JV OTT dominance.</div>
+      </div>
+      <div style="background:#2A1A1A;border-radius:7px;padding:10px;margin-bottom:8px;">
+        <div style="font-size:10px;color:var(--r);font-weight:700;margin-bottom:5px;">🐻 BEAR</div>
+        <div style="font-size:11px;color:#aaa;line-height:1.5;">O2C margin compression. China petchem oversupply. Retail unit economics unclear. Conglomerate discount.</div>
+      </div>
+      <div style="background:#2A2010;border-radius:7px;padding:10px;margin-bottom:8px;">
+        <div style="font-size:10px;color:#FBBF24;font-weight:700;margin-bottom:5px;">⚠ RISK</div>
+        <div style="font-size:11px;color:#aaa;line-height:1.5;">Crude oil volatility. Telecom regulatory risk. DXY sensitivity via FII holdings at 26%.</div>
+      </div>
+      <div style="background:#1A1A1A;border-left:3px solid var(--o);border-radius:6px;padding:9px 11px;">
+        <div style="font-size:9px;color:var(--o);font-weight:700;margin-bottom:4px;">◈ SYNTHESIS</div>
+        <div style="font-size:11px;color:#bbb;line-height:1.5;">BUY at ₹2,800–2,900. 12M target ₹3,240. Risk-adjusted for O2C. 2Y+ horizon.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── COL 3 ── -->
+<div id="c3">
+  <div class="topbar">
+    <span class="bc">Research /</span>
+    <div class="spill"><span>◈</span><span id="tb-ticker">RELIANCE.NS</span></div>
+    <div class="tbsp"></div>
+    <div class="pg" id="exch-group">
+      <div class="pl" onclick="tpill(this,'exch-group')">NSE</div>
+      <div class="pl act" onclick="tpill(this,'exch-group')">BSE</div>
+    </div>
+    <div class="pg" id="yr-group">
+      <div class="pl" onclick="tpill(this,'yr-group')">1Y</div>
+      <div class="pl" onclick="tpill(this,'yr-group')">3Y</div>
+      <div class="pl" onclick="tpill(this,'yr-group')">5Y</div>
+      <div class="pl act" onclick="tpill(this,'yr-group')">ALL</div>
+    </div>
+    <div class="pg" style="gap:3px;">
+      <div class="dp2 act" onclick="tdp(this)"><span class="ck">✓</span>Annual Report</div>
+      <div class="dp2 act" onclick="tdp(this)"><span class="ck">✓</span>Earnings</div>
+      <div class="dp2 act" onclick="tdp(this)"><span class="ck">✓</span>Filings</div>
+    </div>
+    <button class="fbtn" onclick="showModal()">Fetch Data</button>
+  </div>
+
+  <div id="mc">
+    <!-- HOME -->
+    <div id="vh" style="display:flex;">
+      <div class="hico">✳</div>
+      <div class="hgreet" id="greeting">Evening, Shubham</div>
+      <div class="hcard">
+        <span style="font-size:10px;color:var(--m);font-family:var(--mono);">Research /</span>
+        <span style="background:var(--s3);border:1px solid var(--b);border-radius:20px;padding:2px 9px;font-size:11px;font-family:var(--mono);">◈ <span id="hcard-ticker">RELIANCE.NS</span></span>
+        <span style="color:var(--b);margin:0 2px;">|</span>
+        <span style="background:var(--o);border-radius:20px;padding:2px 8px;font-size:10px;font-family:var(--mono);color:#000;font-weight:700;">BSE</span>
+        <span style="background:var(--s3);border:1px solid var(--b);border-radius:20px;padding:2px 8px;font-size:10px;font-family:var(--mono);color:var(--m);">NSE</span>
+        <span style="background:var(--o);border-radius:20px;padding:2px 7px;font-size:10px;font-family:var(--mono);color:#000;font-weight:700;">ALL</span>
+        <span style="font-size:10px;font-family:var(--mono);color:var(--o);">✓ Annual Report</span>
+        <span style="font-size:10px;font-family:var(--mono);color:var(--o);">✓ Earnings</span>
+        <span style="font-size:10px;font-family:var(--mono);color:var(--o);">✓ Filings</span>
+      </div>
+      <div class="hinp-wrap">
+        <textarea class="hinp" rows="3" placeholder="How can I help you today?" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();showView('chat');}"></textarea>
+        <div class="inp-bot">
+          <span style="color:var(--m);font-size:16px;cursor:pointer;">+</span>
+          <div class="msel">Sonnet 4.6 ∨</div>
+          <span style="color:var(--m);font-size:13px;cursor:pointer;">🎤</span>
+        </div>
+      </div>
+      <div class="qcs">
+        <div class="qc" onclick="showView('chat')">📈 Strategize</div>
+        <div class="qc" onclick="showView('chat')">✏ Write</div>
+        <div class="qc" onclick="showView('chat')">🎓 Learn</div>
+        <div class="qc" onclick="showView('chat')">&lt;/&gt; Code</div>
+        <div class="qc">☕ Life stuff</div>
+      </div>
+    </div>
+
+    <!-- CHAT -->
+    <div id="vch" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+      <div class="msgs">
+        <div class="msgs-inner" id="msgs-inner">
+
+          <div class="mu"><div class="mub">Analyse Reliance Q4 FY24 revenue breakdown by segment. What's driving growth?</div></div>
+          <div class="ma">
+            <div class="adot">◈</div>
+            <div class="at">
+              <p>Reliance posted <strong>consolidated revenue of ₹2,32,955 crores</strong> in Q4 FY24, up <strong>11.3% YoY</strong>. Segment breakdown:</p>
+              <p><strong>O2C (Oil-to-Chemicals):</strong> ₹1,54,877 Cr — 66.5% of total. GRM recovered to $8.2/bbl vs $6.7 in Q4 FY23. <span class="cp" onclick="openDrawer('Annual Report 2024','pg.47','The O2C segment recorded revenue of ₹1,54,877 crores in Q4 FY2024, reflecting improvement in refining throughput to 18.6 MMT. Gross Refining Margin (GRM) stood at $8.2/barrel versus $6.7/barrel in the prior year period, driven by sustained demand for transportation fuels and optimised product yields across the Jamnagar complex...')">Annual Report 2024 · pg.47</span></p>
+              <p><strong>Retail (Reliance Retail):</strong> ₹68,937 Cr, up <strong>17.9% YoY</strong>. 3,300+ new stores in FY24. JioMart GMV integration. <span class="cp" onclick="openDrawer('Q4 FY24 Earnings','pg.12','Reliance Retail Ventures Ltd. achieved revenue of ₹68,937 crores in Q4 FY2024, a growth of 17.9% year-on-year. The business opened 3,300+ new stores during FY2024, taking total store count to 18,836 across formats. EBITDA margin expanded 40bps to 8.3% driven by fashion & lifestyle and B2B commerce...')">Q4 FY24 Earnings · pg.12</span></p>
+              <p><strong>Digital (Jio Platforms):</strong> ₹31,264 Cr, up <strong>12.2% YoY</strong>. ARPU: ₹181.7. Subscribers: 489.7M. <span class="cp" onclick="openDrawer('Jio Platforms Filing','pg.8','Jio Platforms reported consolidated revenue from operations of ₹31,264 crores for Q4 FY2024, a growth of 12.2% year-on-year. Average Revenue Per User (ARPU) improved to ₹181.7 from ₹178.8 in Q4 FY23. Total subscriber base reached 489.7 million with net additions of 7.1 million in the quarter...')">Jio Platforms Filing · pg.8</span></p>
+              <p>Management guides for <strong>15–18% EBITDA growth</strong> in FY25, led by Retail expansion + Jio 5G monetisation. <span class="cp" onclick="openDrawer('Management Commentary','pg.3','Management commentary from Chairman Mukesh Ambani at Q4 FY2024 investor call: \"We are confident of delivering 15 to 18 percent EBITDA growth in FY2025, driven primarily by the continued scaling of our consumer businesses — Jio and Retail — and the expected margin normalisation in O2C as refining spreads stabilise...')">Mgmt Commentary · pg.3</span></p>
+            </div>
+          </div>
+
+          <div class="mu"><div class="mub">What is the debt situation? Are they over-leveraged?</div></div>
+          <div class="ma">
+            <div class="adot">◈</div>
+            <div class="at">
+              <p>Net debt stands at <strong>₹1,19,045 crores</strong> as of March 2024. Not over-leveraged by any standard measure:</p>
+              <p>• Total Debt: ₹3,12,441 Cr | Cash: ₹1,93,396 Cr <span class="cp" onclick="openDrawer('Annual Report 2024','pg.112','As at March 31, 2024: Total Borrowings (Long-term + Short-term) stood at ₹3,12,441 crores. Cash and cash equivalents including current investments amounted to ₹1,93,396 crores, resulting in a net debt of ₹1,19,045 crores — a reduction of ₹12,500 crores from the prior year...')">Annual Report 2024 · pg.112</span><br>
+              • Net Debt/EBITDA: <strong>1.1x</strong> (FY24) vs 1.8x in FY22<br>
+              • Interest Coverage: <strong>7.2x</strong> — healthy buffer <span class="cp" onclick="openDrawer('Financial Filings Q4','pg.19','Interest coverage ratio (EBITDA / Net Finance Costs) for FY2024 stood at 7.2x, versus 5.8x in FY2022. Net Debt to EBITDA has declined from 1.8x in FY2022 to 1.1x in FY2024, reflecting strong operating cash flow generation and disciplined capital allocation...')">Financial Filings · pg.19</span><br>
+              • 74% of debt matures beyond 5 years — long-duration, low near-term risk<br>
+              • 5G capex winding down → FCF inflection expected FY25–26</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="cib">
+        <div class="cii">
+          <input class="ci" type="text" id="chat-input" placeholder="Ask about Reliance..." onkeydown="if(event.key==='Enter'){sendMsg();}">
+          <button class="send-btn" onclick="sendMsg()">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="vd" style="display:none;padding:16px;overflow-y:auto;flex:1;">
+      <div class="dh">
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:3px;">
+          <span class="dsn">Reliance Industries Ltd.</span>
+          <span style="font-family:var(--mono);font-size:20px;color:var(--o);font-weight:700;">₹2,847.35</span>
+          <span style="font-family:var(--mono);font-size:12px;color:var(--g);">▲ +34.20 (+1.22%)</span>
+        </div>
+        <div class="dssub">RELIANCE.NS · NSE/BSE · Nifty 50 · Large Cap · Energy / Integrated O2C</div>
+        <div class="dqr">
+          <div class="dqi"><span class="dql">Open</span><span class="dqv">₹2,813</span></div>
+          <div class="dqi"><span class="dql">High</span><span class="dqv">₹2,859</span></div>
+          <div class="dqi"><span class="dql">Low</span><span class="dqv">₹2,808</span></div>
+          <div class="dqi"><span class="dql">Prev Close</span><span class="dqv">₹2,813</span></div>
+          <div class="dqi"><span class="dql">Volume</span><span class="dqv">48.2L</span></div>
+          <div class="dqi"><span class="dql">Mkt Cap</span><span class="dqv">₹19.27L Cr</span></div>
+          <div class="dqi"><span class="dql">P/E (TTM)</span><span class="dqv">26.4x</span></div>
+          <div class="dqi"><span class="dql">52W High</span><span class="dqv">₹3,024</span></div>
+          <div class="dqi"><span class="dql">52W Low</span><span class="dqv">₹2,220</span></div>
+          <div class="dqi"><span class="dql">Beta</span><span class="dqv">1.08</span></div>
+          <div class="dqi"><span class="dql">Circuit ↑</span><span class="dqv pos">₹3,132</span></div>
+          <div class="dqi"><span class="dql">Circuit ↓</span><span class="dqv neg">₹2,562</span></div>
+          <div class="dqi"><span class="dql">Next Earnings</span><span class="dqv">22 Jul 2025</span></div>
+        </div>
+      </div>
+
+      <div class="dgrid">
+        <div class="dc">
+          <div class="dct">Financials (₹ Crores)</div>
+          <table class="ft">
+            <thead><tr><th>Metric</th><th>FY22</th><th>FY23</th><th>FY24</th></tr></thead>
+            <tbody>
+              <tr><td>Revenue</td><td>7,21,634</td><td>8,74,295</td><td>9,01,712</td></tr>
+              <tr><td>Gross Profit</td><td>1,84,234</td><td>2,07,111</td><td>2,29,445</td></tr>
+              <tr><td>EBITDA</td><td>1,24,596</td><td>1,51,847</td><td>1,70,215</td></tr>
+              <tr><td>Net Income</td><td>60,705</td><td>73,670</td><td>79,020</td></tr>
+              <tr><td>FCF</td><td>21,440</td><td>32,880</td><td>48,910</td></tr>
+              <tr><td>Total Debt</td><td>3,41,200</td><td>3,24,778</td><td>3,12,441</td></tr>
+              <tr><td>Cash</td><td>1,81,244</td><td>1,88,512</td><td>1,93,396</td></tr>
+              <tr><td>EBITDA Margin</td><td>17.3%</td><td>17.4%</td><td>18.9%</td></tr>
+              <tr><td>Net Margin</td><td>8.4%</td><td>8.4%</td><td>8.8%</td></tr>
+              <tr><td>ROE</td><td>8.7%</td><td>10.4%</td><td>10.9%</td></tr>
+              <tr><td>EPS (₹)</td><td>89.2</td><td>108.3</td><td>116.6</td></tr>
+              <tr><td>D/E Ratio</td><td>0.61</td><td>0.51</td><td>0.43</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="dc">
+          <div class="dct">Recent News</div>
+          <div class="ni2"><div class="nt">Reliance Retail targets 1,000 new stores in FY25, eyes fashion vertical expansion</div><div class="nm"><span class="ns">Economic Times · 2h</span><span class="sp sp-p">Positive</span></div></div>
+          <div class="ni2"><div class="nt">Jio 5G reaches 500 cities; ARPU upgrade cycle to boost FY25 margins</div><div class="nm"><span class="ns">Mint · 5h</span><span class="sp sp-p">Positive</span></div></div>
+          <div class="ni2"><div class="nt">RIL O2C faces headwinds as China demand remains muted in Q1 FY25</div><div class="nm"><span class="ns">Business Standard · 1d</span><span class="sp sp-n">Negative</span></div></div>
+          <div class="ni2"><div class="nt">Reliance-Disney JV receives CCI approval; OTT consolidation play solidifies</div><div class="nm"><span class="ns">CNBC-TV18 · 2d</span><span class="sp sp-p">Positive</span></div></div>
+          <div class="ni2"><div class="nt">Promoter stake pledge at 0% for 4th consecutive quarter</div><div class="nm"><span class="ns">NSE Filings · 3d</span><span class="sp sp-u">Neutral</span></div></div>
+          <div class="dct" style="margin-top:14px;">Shareholding Pattern (Mar 2024)</div>
+          <div class="shbw"><div class="shbl"><span>Promoters</span><span style="color:var(--o);font-family:var(--mono);">50.33%</span></div><div class="shbt"><div class="shbf" style="width:50.33%;background:var(--o);"></div></div></div>
+          <div class="shbw"><div class="shbl"><span>FII</span><span style="color:#60A5FA;font-family:var(--mono);">26.14%</span></div><div class="shbt"><div class="shbf" style="width:26.14%;background:#60A5FA;"></div></div></div>
+          <div class="shbw"><div class="shbl"><span>DII</span><span style="color:#A78BFA;font-family:var(--mono);">14.22%</span></div><div class="shbt"><div class="shbf" style="width:14.22%;background:#A78BFA;"></div></div></div>
+          <div class="shbw"><div class="shbl"><span>Public</span><span style="font-family:var(--mono);">9.31%</span></div><div class="shbt"><div class="shbf" style="width:9.31%;background:#555;"></div></div></div>
+        </div>
+        <div class="dc">
+          <div class="dct">Analyst Consensus (38 analysts)</div>
+          <div class="ar"><span class="arl" style="color:var(--g);">Strong Buy</span><div class="arb"><div class="arbf" style="width:55%;background:var(--g);height:100%;border-radius:3px;"></div></div><span class="arc" style="color:var(--g);">21</span></div>
+          <div class="ar"><span class="arl" style="color:#86EFAC;">Buy</span><div class="arb"><div class="arbf" style="width:26%;background:#86EFAC;height:100%;border-radius:3px;"></div></div><span class="arc">10</span></div>
+          <div class="ar"><span class="arl">Hold</span><div class="arb"><div class="arbf" style="width:13%;background:#666;height:100%;border-radius:3px;"></div></div><span class="arc">5</span></div>
+          <div class="ar"><span class="arl" style="color:var(--r);">Sell</span><div class="arb"><div class="arbf" style="width:5%;background:var(--r);height:100%;border-radius:3px;"></div></div><span class="arc">2</span></div>
+          <div style="margin-top:10px;background:#1A1A1A;border-radius:6px;padding:9px 11px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div><span style="font-size:10px;color:var(--m);">Mean Target</span><div style="font-family:var(--mono);font-size:13px;color:var(--o);">₹3,240</div></div>
+            <div><span style="font-size:10px;color:var(--m);">High Target</span><div style="font-family:var(--mono);font-size:12px;color:var(--g);">₹3,680</div></div>
+            <div><span style="font-size:10px;color:var(--m);">Low Target</span><div style="font-family:var(--mono);font-size:12px;color:var(--r);">₹2,600</div></div>
+            <div><span style="font-size:10px;color:var(--m);">Upside</span><div style="font-family:var(--mono);font-size:12px;color:var(--g);">+13.8%</div></div>
+          </div>
+          <div style="margin-top:10px;background:#1A1A1A;border-radius:6px;padding:9px 11px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+            <div style="text-align:center;"><div style="font-size:9px;color:var(--m);margin-bottom:2px;">P/E Fwd</div><div style="font-family:var(--mono);font-size:12px;">22.8x</div></div>
+            <div style="text-align:center;"><div style="font-size:9px;color:var(--m);margin-bottom:2px;">P/B</div><div style="font-family:var(--mono);font-size:12px;">2.16x</div></div>
+            <div style="text-align:center;"><div style="font-size:9px;color:var(--m);margin-bottom:2px;">EV/EBITDA</div><div style="font-family:var(--mono);font-size:12px;">12.7x</div></div>
+          </div>
+        </div>
+        <div class="dc">
+          <div class="dct">Agent Debate</div>
+          <div class="deb-grid">
+            <div class="dbull"><div class="dbh">🐂 Bull</div><div class="dbp">Retail + Jio dual growth engines — 15%+ CAGR through FY27</div><div class="dbp">5G ARPU upgrade cycle just starting, ₹181→₹220+</div><div class="dbp">FCF inflection as 5G capex normalises</div><div class="dbp">Disney-JV creates OTT dominance in India</div></div>
+            <div class="dbear"><div class="dbh">🐻 Bear</div><div class="dbp">O2C margin compression — China adds petchem capacity</div><div class="dbp">Retail expansion may dilute overall margins</div><div class="dbp">Conglomerate discount risk as businesses scale</div><div class="dbp">ARPU growth needs price hike — regulatory risk</div></div>
+            <div class="drisk"><div class="dbh">⚠ Risk</div><div class="dbp">Crude oil volatility — direct O2C spread impact</div><div class="dbp">Spectrum costs / telecom regulatory changes</div><div class="dbp">FII at 26% — DXY / EM outflow sensitivity</div><div class="dbp">Retail capex could spike D/E ratio</div></div>
+          </div>
+          <div class="synth"><strong style="color:var(--o);font-size:10px;letter-spacing:.5px;">◈ SYNTHESIS</strong><br>Compelling long at ₹2,800–2,900. 12–18M target ₹3,240. Bull case: Jio ARPU + Retail. Primary risk: O2C margins. Not over-leveraged. Suitable for large-cap 2Y+ horizon.</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div class="dc">
+          <div class="dct">F&amp;O Data</div>
+          <table class="ft"><tbody>
+            <tr><td>OI (Futures)</td><td>2,84,12,500</td></tr>
+            <tr><td>OI Change</td><td style="color:var(--g);">+4.2%</td></tr>
+            <tr><td>Put/Call Ratio</td><td>0.87</td></tr>
+            <tr><td>Max Pain</td><td>₹2,800</td></tr>
+            <tr><td>IV Rank</td><td>34</td></tr>
+          </tbody></table>
+        </div>
+        <div class="dc">
+          <div class="dct">Ownership Details</div>
+          <table class="ft"><tbody>
+            <tr><td>Shares Outstanding</td><td>676.8 Cr</td></tr>
+            <tr><td>Float</td><td>335.4 Cr</td></tr>
+            <tr><td>Insider Holding</td><td>50.33%</td></tr>
+            <tr><td>Short Ratio</td><td>1.4</td></tr>
+            <tr><td>Delivery %</td><td>47.8%</td></tr>
+            <tr><td>Ex-Div Date</td><td>12 Aug 2025</td></tr>
+          </tbody></table>
+        </div>
+        <div class="dc">
+          <div class="dct">Index Membership</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;">
+            <span style="background:#1A2A1A;color:var(--g);border-radius:5px;padding:3px 8px;font-size:10px;font-family:var(--mono);">Nifty 50</span>
+            <span style="background:#1A2A1A;color:var(--g);border-radius:5px;padding:3px 8px;font-size:10px;font-family:var(--mono);">Nifty 500</span>
+            <span style="background:#1A2A1A;color:var(--g);border-radius:5px;padding:3px 8px;font-size:10px;font-family:var(--mono);">Nifty 100</span>
+            <span style="background:#1A2A1A;color:var(--g);border-radius:5px;padding:3px 8px;font-size:10px;font-family:var(--mono);">MSCI India</span>
+            <span style="background:#1A1A2A;color:#A78BFA;border-radius:5px;padding:3px 8px;font-size:10px;font-family:var(--mono);">Sensex</span>
+          </div>
+          <div style="font-size:10px;color:var(--m);margin-bottom:3px;">Sector</div>
+          <div style="font-size:11px;margin-bottom:9px;">Energy &amp; Petrochemicals / O2C</div>
+          <div style="font-size:10px;color:var(--m);margin-bottom:3px;">Capex Guide FY25</div>
+          <div style="font-family:var(--mono);color:var(--o);font-size:14px;">₹1,20,000 Cr</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAGAS -->
+    <div id="vr" style="display:none;padding:16px;overflow-y:auto;flex:1;">
+      <div style="margin-bottom:14px;"><div style="font-size:16px;font-weight:700;margin-bottom:3px;">RAGAS Metrics</div><div style="font-size:11px;color:var(--m);">Retrieval Augmented Generation Assessment · Evaluated 28 Jun 2025 04:12 UTC</div></div>
+      <div class="rg">
+        <div class="rc"><div class="rm">Faithfulness</div><div class="rs" style="color:var(--g);">0.91</div><div class="rb"><div class="rbf" style="width:91%;background:var(--g);"></div></div><span class="rbdg rpass">PASS</span></div>
+        <div class="rc"><div class="rm">Answer Relevance</div><div class="rs" style="color:var(--g);">0.87</div><div class="rb"><div class="rbf" style="width:87%;background:var(--g);"></div></div><span class="rbdg rpass">PASS</span></div>
+        <div class="rc"><div class="rm">Context Precision</div><div class="rs" style="color:#FBBF24;">0.83</div><div class="rb"><div class="rbf" style="width:83%;background:#FBBF24;"></div></div><span class="rbdg rwarn">WARN</span></div>
+        <div class="rc"><div class="rm">Context Recall</div><div class="rs" style="color:#FBBF24;">0.79</div><div class="rb"><div class="rbf" style="width:79%;background:#FBBF24;"></div></div><span class="rbdg rwarn">WARN</span></div>
+      </div>
+      <div class="rtw">
+        <div style="font-size:12px;font-weight:600;margin-bottom:10px;">Last 5 Queries</div>
+        <table class="rtt">
+          <thead><tr><th>Query</th><th>Faith.</th><th>Relev.</th><th>Prec.</th><th>Recall</th></tr></thead>
+          <tbody>
+            <tr><td style="font-family:var(--sans);">Revenue Analysis Q4 FY24</td><td style="color:var(--g);">0.94</td><td style="color:var(--g);">0.91</td><td style="color:var(--g);">0.88</td><td style="color:var(--g);">0.86</td></tr>
+            <tr><td style="font-family:var(--sans);">Debt structure breakdown</td><td style="color:var(--g);">0.92</td><td style="color:var(--g);">0.88</td><td style="color:#FBBF24;">0.81</td><td style="color:#FBBF24;">0.79</td></tr>
+            <tr><td style="font-family:var(--sans);">Management commentary FY25</td><td style="color:var(--g);">0.89</td><td style="color:var(--g);">0.86</td><td style="color:#FBBF24;">0.84</td><td style="color:#FBBF24;">0.77</td></tr>
+            <tr><td style="font-family:var(--sans);">Competitor comparison O2C</td><td style="color:#FBBF24;">0.85</td><td style="color:var(--g);">0.83</td><td style="color:#FBBF24;">0.78</td><td style="color:var(--r);">0.72</td></tr>
+            <tr><td style="font-family:var(--sans);">Risk factors from AR 2024</td><td style="color:var(--g);">0.93</td><td style="color:var(--g);">0.89</td><td style="color:var(--g);">0.86</td><td style="color:var(--g);">0.81</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cg">
+        <div class="ck2"><div class="ckl">Avg Chunk Size</div><div class="ckv" style="color:var(--o);">512 <span style="font-size:11px;color:var(--m);">tokens</span></div></div>
+        <div class="ck2"><div class="ckl">Retrieval Hit Rate</div><div class="ckv" style="color:var(--g);">94.2<span style="font-size:11px;color:var(--m);">%</span></div></div>
+        <div class="ck2"><div class="ckl">Reranker Score Avg</div><div class="ckv" style="color:#FBBF24;">0.76</div></div>
+      </div>
+    </div>
+
+    <!-- COMPARE -->
+    <div id="vcmp" style="display:none;padding:16px;overflow-y:auto;flex:1;">
+      <div style="margin-bottom:12px;"><div style="font-size:16px;font-weight:700;">Compare Stocks</div><div style="font-size:11px;color:var(--m);margin-top:2px;">Side-by-side fundamental analysis</div></div>
+      <div class="cmpw">
+        <div class="cmph">
+          <div class="cmplc" style="padding-top:18px;"><div style="font-size:9px;color:var(--m2);text-transform:uppercase;letter-spacing:.7px;">Metric</div></div>
+          <div class="cmpsc act">
+            <div class="cmpn" style="color:var(--o);">RELIANCE</div><div class="cmpsb">Reliance Industries</div><div class="cmpp">₹2,847</div>
+            <div style="font-size:10px;font-family:var(--mono);color:var(--g);">▲1.22%</div>
+          </div>
+          <div class="cmpsc">
+            <div class="cmpn">TCS</div><div class="cmpsb">Tata Consultancy Svcs</div><div class="cmpp" style="color:var(--t);">₹3,387</div>
+            <div style="font-size:10px;font-family:var(--mono);color:var(--r);">▼0.41%</div>
+          </div>
+        </div>
+        <table class="cmptable" style="width:100%;border-collapse:collapse;">
+          <colgroup><col style="width:160px"><col><col></colgroup>
+          <tbody>
+            <tr><td class="csh" colspan="3">Valuation</td></tr>
+            <tr><td>Market Cap</td><td class="hl">₹19,27,845 Cr</td><td>₹12,34,201 Cr</td></tr>
+            <tr><td>P/E (TTM)</td><td class="hl">26.4x</td><td>30.2x</td></tr>
+            <tr><td>P/E (Forward)</td><td class="hl">22.8x</td><td>27.1x</td></tr>
+            <tr><td>PEG Ratio</td><td class="hl">1.40</td><td>2.10</td></tr>
+            <tr><td>Price/Book</td><td>2.16x</td><td class="hl">16.8x</td></tr>
+            <tr><td>EV/EBITDA</td><td class="hl">12.7x</td><td>22.4x</td></tr>
+            <tr><td class="csh" colspan="3">Financials (₹ Cr, FY24)</td></tr>
+            <tr><td>Revenue</td><td class="hl">9,01,712</td><td>2,40,893</td></tr>
+            <tr><td>EBITDA</td><td class="hl">1,70,215</td><td>72,417</td></tr>
+            <tr><td>Net Income</td><td class="hl">79,020</td><td>46,099</td></tr>
+            <tr><td>EBITDA Margin</td><td>18.9%</td><td class="hl">30.1%</td></tr>
+            <tr><td>Net Margin</td><td>8.8%</td><td class="hl">19.1%</td></tr>
+            <tr><td class="csh" colspan="3">Quality &amp; Returns</td></tr>
+            <tr><td>ROE</td><td>10.9%</td><td class="hl">51.2%</td></tr>
+            <tr><td>ROA</td><td>5.8%</td><td class="hl">20.1%</td></tr>
+            <tr><td>D/E Ratio</td><td class="hl">0.43</td><td>0.07</td></tr>
+            <tr><td>Free Cash Flow</td><td>₹48,910 Cr</td><td class="hl">₹51,238 Cr</td></tr>
+            <tr><td>Dividend Yield</td><td>0.35%</td><td class="hl">1.42%</td></tr>
+            <tr><td class="csh" colspan="3">Price Performance</td></tr>
+            <tr><td>52W Return</td><td class="hl">+21.4%</td><td>+14.8%</td></tr>
+            <tr><td>Beta</td><td>1.08</td><td class="hl">0.62</td></tr>
+            <tr><td>Analyst Target</td><td class="hl">₹3,240</td><td>₹3,890</td></tr>
+            <tr><td>Upside</td><td class="hl" style="color:var(--g);">+13.8%</td><td style="color:var(--g);">+14.8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT DRAWER -->
+  <div id="rd">
+    <div class="rdh">
+      <span class="rdt">Source Panel</span>
+      <button class="rdc" onclick="closeDrawer()">×</button>
+    </div>
+    <div class="rdb">
+      <div class="rddn" id="rd-doc">Annual Report 2024</div>
+      <div class="rdpg" id="rd-page">Page 47 · O2C Segment</div>
+      <div class="rdchunk" id="rd-chunk">Loading source chunk...</div>
+      <div class="rdat">Available Assets</div>
+      <div class="ai2"><span class="aico">📄</span><span class="ain">Annual Report FY2024.pdf</span><span class="aim">18.4 MB</span></div>
+      <div class="ai2"><span class="aico">📊</span><span class="ain">Q4 FY24 Results.pdf</span><span class="aim">3.2 MB</span></div>
+      <div class="ai2"><span class="aico">📋</span><span class="ain">Investor Presentation.pdf</span><span class="aim">8.9 MB</span></div>
+      <div class="ai2"><span class="aico">📈</span><span class="ain">Segment Revenue Table.xlsx</span><span class="aim">420 KB</span></div>
+      <div class="ai2"><span class="aico">📰</span><span class="ain">Management Commentary Q4.txt</span><span class="aim">88 KB</span></div>
+      <div class="ai2"><span class="aico">🗃</span><span class="ain">NSE Filings Archive</span><span class="aim">12 files</span></div>
+      <div class="ai2"><span class="aico">📡</span><span class="ain">Live Market Feed</span><span class="aim">Connected</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING MODAL -->
+<div id="lm">
+  <div class="lbox">
+    <div class="ltitle">◈ Fetching Data Sources</div>
+    <div class="llines" id="llines"></div>
+  </div>
+</div>
+
+<script>
+// Greeting
+const H = new Date().getHours();
+const GW = H<12?'Morning':H<17?'Afternoon':'Evening';
+document.getElementById('greeting').textContent = GW+', Shubham';
+
+// Active current view
+let currentView = 'home';
+
+function showView(v) {
+  const views = ['vh','vch','vd','vr','vcmp'];
+  views.forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.style.display = 'none';
+  });
+  const map = {home:'vh',chat:'vch',dashboard:'vd',ragas:'vr',compare:'vcmp'};
+  const el = document.getElementById(map[v]);
+  if(!el) return;
+  el.style.display = (v==='chat') ? 'flex' : 'block';
+  // fix flex for home
+  if(v==='home') el.style.display = 'flex';
+  currentView = v;
+  // sync data panel in col2
+  const dp = document.getElementById('c2-data-panel');
+  const cp = document.getElementById('c2-chat-panel');
+  const dep = document.getElementById('c2-debate-panel');
+  const sp = document.getElementById('c2-sources-panel');
+  [dp,cp,dep,sp].forEach(p=>{if(p)p.style.display='none';});
+  if(v==='dashboard') {
+    if(dp) dp.style.display='flex';
+  } else {
+    // check which c2 tab is active
+    const activeC2 = document.querySelector('.c2ni.act');
+    const c2id = activeC2 ? activeC2.id : '';
+    if(c2id==='c2n-sources') { if(sp) sp.style.display='flex'; }
+    else if(c2id==='c2n-debate') { if(dep) dep.style.display='flex'; }
+    else { if(cp) cp.style.display='flex'; }
+  }
+}
+
+function goHome() {
+  setC2Nav('chat');
+  showView('home');
+  setPi('portfolio');
+}
+
+// C2 nav
+function setC2Nav(n) {
+  document.querySelectorAll('.c2ni').forEach(el => el.classList.remove('act'));
+  const el = document.getElementById('c2n-'+n);
+  if(el) el.classList.add('act');
+
+  const dp  = document.getElementById('c2-data-panel');
+  const cp  = document.getElementById('c2-chat-panel');
+  const dep = document.getElementById('c2-debate-panel');
+  const sp  = document.getElementById('c2-sources-panel');
+
+  [dp,cp,dep,sp].forEach(p=>{if(p)p.style.display='none';});
+
+  if(n==='dashboard') {
+    if(dp) dp.style.display='flex';
+    showView('dashboard');
+  } else if(n==='debate') {
+    if(dep) dep.style.display='flex';
+    showView('dashboard');
+  } else if(n==='sources') {
+    if(sp) sp.style.display='flex';
+    // keep chat or home visible as context
+    if(currentView!=='chat') showView('chat');
+  } else {
+    if(cp) cp.style.display='flex';
+    showView(currentView==='chat'?'chat':'home');
+  }
+}
+
+function filterSrc(tabEl, type) {
+  document.querySelectorAll('.src-tab').forEach(t=>{
+    t.style.color='var(--m)';
+    t.style.borderBottomColor='transparent';
+    t.classList.remove('act');
+  });
+  tabEl.style.color='var(--t)';
+  tabEl.style.borderBottomColor='var(--o)';
+  tabEl.classList.add('act');
+  document.querySelectorAll('.src-item').forEach(item=>{
+    item.style.display = (type==='all'||item.dataset.type===type) ? 'flex' : 'none';
+  });
+}
+
+// Left sidebar project items
+function setPi(id) {
+  document.querySelectorAll('.pi').forEach(el => el.classList.remove('act'));
+  const el = document.getElementById('pi-'+id);
+  if(el) el.classList.add('act');
+}
+
+// Stock switching
+function switchStock(el, ticker, shortName, ns, price, chg, dir) {
+  document.querySelectorAll('.sr').forEach(r => r.classList.remove('act'));
+  el.classList.add('act');
+  document.getElementById('c2name').textContent = shortName;
+  document.getElementById('tb-ticker').textContent = ns;
+  document.getElementById('hcard-ticker').textContent = ns;
+  showView('home');
+  setC2Nav('chat');
+  setPi('portfolio');
+}
+
+// Session loading
+function loadSession(el, title) {
+  document.querySelectorAll('.sesi').forEach(s => s.classList.remove('act'));
+  el.classList.add('act');
+  showView('chat');
+  setC2Nav('chat');
+}
+
+// Pills
+function tpill(el, gid) {
+  document.getElementById(gid).querySelectorAll('.pl').forEach(p => p.classList.remove('act'));
+  el.classList.add('act');
+}
+
+function tdp(el) {
+  el.classList.toggle('act');
+  const ck = el.querySelector('.ck');
+  if(el.classList.contains('act')) { ck.style.display=''; }
+  else { ck.style.display='none'; el.style.color='var(--m)'; }
+}
+
+// Drawer
+function openDrawer(doc, page, chunk) {
+  document.getElementById('rd-doc').textContent = doc;
+  document.getElementById('rd-page').textContent = page + ' · Source Document';
+  document.getElementById('rd-chunk').textContent = chunk || '...';
+  document.getElementById('rd').classList.add('open');
+}
+function closeDrawer() { document.getElementById('rd').classList.remove('open'); }
+
+// Chat
+function sendMsg() {
+  const inp = document.getElementById('chat-input');
+  const txt = inp.value.trim();
+  if(!txt) return;
+  const inner = document.getElementById('msgs-inner');
+  const mu = document.createElement('div');
+  mu.className = 'mu';
+  mu.innerHTML = `<div class="mub">${txt}</div>`;
+  inner.appendChild(mu);
+  const ma = document.createElement('div');
+  ma.className = 'ma';
+  ma.innerHTML = `<div class="adot">◈</div><div class="at"><p style="color:var(--m);font-style:italic;">Analysing data for your query...</p></div>`;
+  inner.appendChild(ma);
+  inp.value = '';
+  const msgs = inner.parentElement;
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// Loading modal
+const LINES = [
+  {t:'> Connecting to NSE/BSE data feeds...',c:'#aaa'},
+  {t:'> Fetching RELIANCE.NS live quote... ₹2,847.35 ✓',c:'#4ADE80'},
+  {t:'> Loading Annual Report FY2024 (18.4 MB)...',c:'#aaa'},
+  {t:'> Chunking PDF → 1,842 chunks @ 512 tokens ✓',c:'#4ADE80'},
+  {t:'> Embedding with text-embedding-3-small...',c:'#aaa'},
+  {t:'> Indexing into vector store... 1842/1842 ✓',c:'#4ADE80'},
+  {t:'> Fetching Q4 FY24 earnings transcript...',c:'#aaa'},
+  {t:'> Pulling shareholding pattern (Mar 2024) ✓',c:'#4ADE80'},
+  {t:'> Fetching NSE F&O OI data ✓',c:'#4ADE80'},
+  {t:'> Loading Google News RSS for RELIANCE ✓',c:'#4ADE80'},
+  {t:'> Fetching analyst consensus from Yahoo Finance ✓',c:'#4ADE80'},
+  {t:'> Computing RAGAS metrics on last 5 queries...',c:'#aaa'},
+  {t:'> Faithfulness: 0.91 ✓  Relevance: 0.87 ✓',c:'#4ADE80'},
+  {t:'> Context Precision: 0.83 ⚠  Recall: 0.79 ⚠',c:'#FBBF24'},
+  {t:'> All data sources indexed. System ready. ✓',c:'#4ADE80'},
+];
+function showModal() {
+  const modal = document.getElementById('lm');
+  const ll = document.getElementById('llines');
+  ll.innerHTML = '';
+  modal.style.display = 'flex';
+  let i = 0;
+  const t = setInterval(() => {
+    if(i >= LINES.length) {
+      clearInterval(t);
+      setTimeout(() => {
+        modal.style.display = 'none';
+        setC2Nav('dashboard');
+        showView('dashboard');
+        setPi('portfolio');
+      }, 700);
+      return;
+    }
+    const d = document.createElement('div');
+    d.className = 'll';
+    d.textContent = LINES[i].t;
+    d.style.color = LINES[i].c;
+    ll.appendChild(d);
+    ll.parentElement.scrollTop = ll.parentElement.scrollHeight;
+    i++;
+  }, 180);
+}
+document.getElementById('lm').addEventListener('click', function(e) {
+  if(e.target===this) this.style.display='none';
+});
+
+// Wire left sidebar items for ragas/compare
+document.getElementById('pi-ragas').addEventListener('click', () => { showView('ragas'); });
+document.getElementById('pi-compare').addEventListener('click', () => { showView('compare'); });
+</script>
+</body>
+</html>
