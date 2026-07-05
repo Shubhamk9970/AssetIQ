@@ -95,6 +95,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:14px;
 /* ── COL 3 ── */
 #c3{flex:1;background:var(--bg);display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;}
 .topbar{height:52px;background:var(--s1);border-bottom:1px solid var(--b);display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;}
+.topbar .pg,.topbar .fbtn{display:none;}
 .bc{font-family:var(--mono);font-size:10px;color:var(--m);}
 .spill{background:var(--s3);border:1px solid var(--b);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600;font-family:var(--mono);display:flex;align-items:center;gap:5px;}
 .spill span{color:var(--o);}
@@ -197,6 +198,28 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:14px;
 .drisk .dbp{border-left-color:#FBBF24;}
 .synth{background:#1A1A1A;border-radius:7px;padding:9px 11px;font-size:11px;color:#bbb;line-height:1.6;border-left:3px solid var(--o);}
 
+/* SETUP */
+#vs{display:none;padding:16px;overflow-y:auto;flex:1;}
+.setup-head{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+.setup-title{font-size:18px;font-weight:700;margin-bottom:3px;}
+.setup-sub{font-size:11px;color:var(--m);font-family:var(--mono);}
+.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.setup-card{background:var(--s2);border:1px solid var(--b);border-radius:8px;padding:13px 14px;}
+.setup-card.wide{grid-column:1/-1;}
+.setup-card-title{font-size:12px;font-weight:600;margin-bottom:10px;}
+.setup-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #1A1A1A;}
+.setup-row:last-child{border-bottom:none;}
+.setup-label{font-size:11px;color:var(--m);}
+.setup-value{font-family:var(--mono);font-size:11px;color:var(--t);}
+.setup-controls{display:flex;gap:6px;flex-wrap:wrap;}
+.setup-checks{display:flex;gap:7px;flex-wrap:wrap;}
+.setup-input{background:var(--s1);border:1px solid var(--b);border-radius:8px;color:var(--t);font-family:var(--sans);font-size:12px;padding:8px 10px;outline:none;min-width:150px;}
+.setup-input:focus{border-color:#555;}
+.setup-action{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#111;border:1px solid var(--b);border-radius:8px;padding:10px 11px;margin-top:10px;}
+.setup-action-copy{font-size:11px;color:#bbb;line-height:1.5;}
+.setup-note{font-size:10px;color:var(--m);font-family:var(--mono);margin-top:8px;line-height:1.5;}
+@media(max-width:900px){.setup-grid{grid-template-columns:1fr;}}
+
 /* RAGAS */
 #vr{display:none;padding:16px;overflow-y:auto;flex:1;}
 .rg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
@@ -279,6 +302,31 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:14px;
 .ltitle{font-size:11px;color:var(--m);font-family:var(--mono);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
 .llines{font-family:var(--mono);font-size:11px;}
 .ll{margin-bottom:3px;}
+
+/* NEW ANALYSIS MODAL */
+#nam{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:120;align-items:center;justify-content:center;padding:18px;}
+#nam.open{display:flex;}
+.na-box{width:min(430px,100%);background:var(--s2);border:1px solid var(--b);border-radius:12px;box-shadow:0 24px 70px rgba(0,0,0,.45);overflow:hidden;}
+.na-head{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-bottom:1px solid var(--b);}
+.na-title{font-size:13px;font-weight:700;}
+.na-close{background:transparent;border:none;color:var(--m);font-size:20px;line-height:1;cursor:pointer;padding:2px 5px;}
+.na-close:hover{color:var(--t);}
+.na-body{padding:16px;display:flex;flex-direction:column;gap:12px;}
+.na-field{display:flex;flex-direction:column;gap:6px;}
+.na-label{font-size:10px;color:var(--m);text-transform:uppercase;letter-spacing:.8px;font-weight:600;}
+.na-select,.na-input{width:100%;background:var(--s1);border:1px solid var(--b);border-radius:8px;color:var(--t);font-family:var(--sans);font-size:13px;padding:10px 11px;outline:none;}
+.na-select:focus,.na-input:focus{border-color:#555;}
+.na-hint{font-size:11px;color:var(--m);line-height:1.5;}
+.na-preview{background:#111;border:1px solid var(--b);border-radius:8px;padding:10px 11px;display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;}
+.na-p-name{font-size:12px;font-weight:700;}
+.na-p-ticker{font-family:var(--mono);font-size:11px;color:var(--o);}
+.na-p-meta{grid-column:1/-1;font-size:10px;color:var(--m);font-family:var(--mono);}
+.na-actions{display:flex;justify-content:flex-end;gap:8px;padding:13px 16px;border-top:1px solid var(--b);}
+.na-secondary,.na-primary{border-radius:8px;padding:8px 12px;font-family:var(--sans);font-size:12px;cursor:pointer;}
+.na-secondary{background:transparent;border:1px solid var(--b);color:var(--m);}
+.na-secondary:hover{color:var(--t);border-color:#444;}
+.na-primary{background:var(--o);border:1px solid var(--o);color:#000;font-weight:700;}
+.na-primary:hover{filter:brightness(1.05);}
 </style>
 </head>
 <body>
@@ -293,7 +341,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:14px;
     </div>
   </div>
 
-  <button class="new-btn" onclick="goHome()">
+  <button class="new-btn" onclick="openNewAnalysis()">
     <span class="plus">+</span> New Analysis
   </button>
 
@@ -373,6 +421,10 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:14px;
 
   <div class="c2nav">
     <div class="c2nl">Navigation</div>
+    <div class="c2ni" id="c2n-setup" onclick="setC2Nav('setup')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 .6 1.65 1.65 0 0 0-.39 1.06V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-.6-1 1.65 1.65 0 0 0-1.06-.39H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-.6 1.65 1.65 0 0 0 .39-1.06V3a2 2 0 0 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.31.37.57.66.75.25.16.54.25.85.25H21a2 2 0 0 1 0 4h-.09c-.31 0-.6.09-.85.25-.29.18-.52.44-.66.75z"/></svg>
+      Setup
+    </div>
     <div class="c2ni" id="c2n-dashboard" onclick="setC2Nav('dashboard')">
       <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       Dashboard
@@ -718,6 +770,82 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:14px;
   </div>
 
   <div id="mc">
+    <!-- SETUP -->
+    <div id="vs" style="display:none;">
+      <div class="setup-head">
+        <div class="setup-title">Research Setup</div>
+        <div class="setup-sub">Configure market, time range, sources, retrieval, and agent settings before running analysis.</div>
+      </div>
+
+      <div class="setup-grid">
+        <div class="setup-card">
+          <div class="setup-card-title">Market Scope</div>
+          <div class="setup-row">
+            <div>
+              <div class="setup-label">Exchange</div>
+              <div class="setup-note">Choose primary quote source.</div>
+            </div>
+            <div class="setup-controls pg" id="setup-exch-group">
+              <div class="pl" onclick="tpill(this,'setup-exch-group')">NSE</div>
+              <div class="pl act" onclick="tpill(this,'setup-exch-group')">BSE</div>
+            </div>
+          </div>
+          <div class="setup-row">
+            <div>
+              <div class="setup-label">History range</div>
+              <div class="setup-note">Used for price and financial trend context.</div>
+            </div>
+            <div class="setup-controls pg" id="setup-yr-group">
+              <div class="pl" onclick="tpill(this,'setup-yr-group')">1Y</div>
+              <div class="pl" onclick="tpill(this,'setup-yr-group')">3Y</div>
+              <div class="pl" onclick="tpill(this,'setup-yr-group')">5Y</div>
+              <div class="pl act" onclick="tpill(this,'setup-yr-group')">ALL</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="setup-card">
+          <div class="setup-card-title">Data Sources</div>
+          <div class="setup-checks">
+            <div class="dp2 act" onclick="tdp(this)"><span class="ck">✓</span>Annual Report</div>
+            <div class="dp2 act" onclick="tdp(this)"><span class="ck">✓</span>Earnings</div>
+            <div class="dp2 act" onclick="tdp(this)"><span class="ck">✓</span>Filings</div>
+            <div class="dp2" onclick="tdp(this)"><span class="ck" style="display:none;">✓</span>News</div>
+            <div class="dp2" onclick="tdp(this)"><span class="ck" style="display:none;">✓</span>F&O</div>
+            <div class="dp2" onclick="tdp(this)"><span class="ck" style="display:none;">✓</span>Shareholding</div>
+          </div>
+          <div class="setup-note">Preview only: these toggles simulate what the production fetch/index pipeline will use.</div>
+        </div>
+
+        <div class="setup-card">
+          <div class="setup-card-title">AI Retrieval</div>
+          <div class="setup-row"><span class="setup-label">Model</span><span class="setup-value">Sonnet 4.6</span></div>
+          <div class="setup-row"><span class="setup-label">Chunk size</span><span class="setup-value">512 tokens</span></div>
+          <div class="setup-row"><span class="setup-label">Top-K context</span><span class="setup-value">8 chunks</span></div>
+          <div class="setup-row"><span class="setup-label">Citation mode</span><span class="setup-value">Strict</span></div>
+        </div>
+
+        <div class="setup-card">
+          <div class="setup-card-title">Analysis Features</div>
+          <div class="setup-checks">
+            <div class="dp2 act" onclick="tdp(this)"><span class="ck">✓</span>Dashboard</div>
+            <div class="dp2 act" onclick="tdp(this)"><span class="ck">✓</span>Agent Debate</div>
+            <div class="dp2 act" onclick="tdp(this)"><span class="ck">✓</span>RAGAS</div>
+            <div class="dp2" onclick="tdp(this)"><span class="ck" style="display:none;">✓</span>Peer Compare</div>
+          </div>
+          <div class="setup-note">Feature switches are visual for now and help define the final workflow.</div>
+        </div>
+
+        <div class="setup-card wide">
+          <div class="setup-card-title">Run Setup</div>
+          <div class="setup-action">
+            <div class="setup-action-copy">Fetch sample sources, index documents, refresh market data, and open the dashboard preview.</div>
+            <button class="fbtn" onclick="showModal()">Fetch Data</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- HOME -->
     <div id="vh" style="display:flex;">
       <div class="hico">✳</div>
@@ -1025,6 +1153,42 @@ body{background:var(--bg);color:var(--t);font-family:var(--sans);font-size:14px;
   </div>
 </div>
 
+<!-- NEW ANALYSIS MODAL -->
+<div id="nam" aria-hidden="true">
+  <div class="na-box" role="dialog" aria-modal="true" aria-labelledby="na-title">
+    <div class="na-head">
+      <div class="na-title" id="na-title">New Analysis</div>
+      <button class="na-close" type="button" onclick="closeNewAnalysis()" aria-label="Close">x</button>
+    </div>
+    <div class="na-body">
+      <div class="na-field">
+        <label class="na-label" for="na-company-select">Sample company</label>
+        <select class="na-select" id="na-company-select" onchange="syncNewAnalysisPreview()">
+          <option value="RELIANCE">Reliance Industries</option>
+          <option value="TCS">Tata Consultancy Services</option>
+          <option value="INFY">Infosys</option>
+          <option value="HDFCBANK">HDFC Bank</option>
+          <option value="ADANIENT">Adani Enterprises</option>
+        </select>
+      </div>
+      <div class="na-field">
+        <label class="na-label" for="na-company-input">Or type company name</label>
+        <input class="na-input" id="na-company-input" type="text" placeholder="Example: Tata Motors" oninput="syncNewAnalysisPreview()" onkeydown="if(event.key==='Enter'){startNewAnalysis();}">
+      </div>
+      <div class="na-hint">This is preview data only. Choosing or typing a company updates the workspace with a sample ticker and starter analysis context.</div>
+      <div class="na-preview">
+        <div class="na-p-name" id="na-preview-name">Reliance Industries</div>
+        <div class="na-p-ticker" id="na-preview-ticker">RELIANCE.NS</div>
+        <div class="na-p-meta" id="na-preview-meta">Sample price: Rs 2,847 | Change: +1.22%</div>
+      </div>
+    </div>
+    <div class="na-actions">
+      <button class="na-secondary" type="button" onclick="closeNewAnalysis()">Cancel</button>
+      <button class="na-primary" type="button" onclick="startNewAnalysis()">Start Analysis</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // Greeting
 const H = new Date().getHours();
@@ -1034,14 +1198,110 @@ document.getElementById('greeting').textContent = GW+', Shubham';
 // Active current view
 let currentView = 'home';
 
+const sampleCompanies = {
+  RELIANCE:{ticker:'RELIANCE',shortName:'Reliance',company:'Reliance Industries',ns:'RELIANCE.NS',price:'Rs 2,847',chg:'+1.22%',dir:'pos'},
+  TCS:{ticker:'TCS',shortName:'TCS',company:'Tata Consultancy Services',ns:'TCS.NS',price:'Rs 3,387',chg:'-0.41%',dir:'neg'},
+  INFY:{ticker:'INFY',shortName:'Infosys',company:'Infosys',ns:'INFY.NS',price:'Rs 1,688',chg:'+2.13%',dir:'pos'},
+  HDFCBANK:{ticker:'HDFCBANK',shortName:'HDFC Bank',company:'HDFC Bank',ns:'HDFCBANK.NS',price:'Rs 1,592',chg:'-0.78%',dir:'neg'},
+  ADANIENT:{ticker:'ADANIENT',shortName:'Adani Ent.',company:'Adani Enterprises',ns:'ADANIENT.NS',price:'Rs 2,994',chg:'+1.87%',dir:'pos'}
+};
+
+function getTypedCompanyData() {
+  const input = document.getElementById('na-company-input');
+  const typed = input ? input.value.trim() : '';
+  if(!typed) return null;
+  const clean = typed.replace(/[^a-zA-Z0-9 ]/g,'').trim();
+  const words = clean.split(/\s+/).filter(Boolean);
+  const ticker = (words.length > 1 ? words.map(w => w[0]).join('') : clean).toUpperCase().slice(0,10) || 'CUSTOM';
+  return {
+    ticker,
+    shortName: typed.length > 18 ? typed.slice(0,18) + '...' : typed,
+    company: typed,
+    ns: ticker + '.NS',
+    price: 'Rs 1,250',
+    chg: '+0.84%',
+    dir: 'pos'
+  };
+}
+
+function selectedCompanyData() {
+  const custom = getTypedCompanyData();
+  if(custom) return custom;
+  const select = document.getElementById('na-company-select');
+  return sampleCompanies[(select && select.value) || 'RELIANCE'] || sampleCompanies.RELIANCE;
+}
+
+function syncNewAnalysisPreview() {
+  const data = selectedCompanyData();
+  const name = document.getElementById('na-preview-name');
+  const ticker = document.getElementById('na-preview-ticker');
+  const meta = document.getElementById('na-preview-meta');
+  if(name) name.textContent = data.company;
+  if(ticker) ticker.textContent = data.ns;
+  if(meta) meta.textContent = 'Sample price: ' + data.price + ' | Change: ' + data.chg;
+}
+
+function openNewAnalysis() {
+  const modal = document.getElementById('nam');
+  if(!modal) return;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  syncNewAnalysisPreview();
+  setTimeout(() => {
+    const input = document.getElementById('na-company-input');
+    if(input) input.focus();
+  }, 40);
+}
+
+function closeNewAnalysis() {
+  const modal = document.getElementById('nam');
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+}
+
+function makeWatchlistRow(data) {
+  const row = document.createElement('div');
+  row.className = 'sr';
+  row.dataset.generated = 'true';
+  row.onclick = function(){ switchStock(row,data.ticker,data.shortName,data.ns,data.price,data.chg,data.dir); };
+  row.innerHTML = '<div><div class="tk"></div><div class="co"></div></div><div><div class="pr"></div><div class="ch"></div></div>';
+  row.querySelector('.tk').textContent = data.ticker;
+  row.querySelector('.co').textContent = data.company;
+  row.querySelector('.pr').textContent = data.price;
+  const change = row.querySelector('.ch');
+  change.textContent = data.chg;
+  change.classList.add(data.dir);
+  return row;
+}
+
+function startNewAnalysis() {
+  const data = selectedCompanyData();
+  const existing = Array.from(document.querySelectorAll('.sr')).find(row => {
+    const tk = row.querySelector('.tk');
+    return tk && tk.textContent === data.ticker;
+  });
+  let row = existing;
+  if(!row) {
+    row = makeWatchlistRow(data);
+    const list = document.querySelector('.wl');
+    if(list) list.prepend(row);
+  }
+  switchStock(row,data.ticker,data.shortName,data.ns,data.price,data.chg,data.dir);
+  const chatInput = document.getElementById('chat-input');
+  if(chatInput) chatInput.placeholder = 'Ask about ' + data.company + '...';
+  closeNewAnalysis();
+  showView('home');
+}
+
 function showView(v) {
-  const views = ['vh','vch','vd','vr','vcmp'];
+  const views = ['vh','vch','vd','vs','vr','vcmp'];
   views.forEach(id => {
     const el = document.getElementById(id);
     if(!el) return;
     el.style.display = 'none';
   });
-  const map = {home:'vh',chat:'vch',dashboard:'vd',ragas:'vr',compare:'vcmp'};
+  const map = {home:'vh',chat:'vch',dashboard:'vd',setup:'vs',ragas:'vr',compare:'vcmp'};
   const el = document.getElementById(map[v]);
   if(!el) return;
   el.style.display = (v==='chat') ? 'flex' : 'block';
@@ -1054,7 +1314,7 @@ function showView(v) {
   const dep = document.getElementById('c2-debate-panel');
   const sp = document.getElementById('c2-sources-panel');
   [dp,cp,dep,sp].forEach(p=>{if(p)p.style.display='none';});
-  if(v==='dashboard') {
+  if(v==='dashboard' || v==='setup') {
     if(dp) dp.style.display='flex';
   } else {
     // check which c2 tab is active
@@ -1085,7 +1345,10 @@ function setC2Nav(n) {
 
   [dp,cp,dep,sp].forEach(p=>{if(p)p.style.display='none';});
 
-  if(n==='dashboard') {
+  if(n==='setup') {
+    if(dp) dp.style.display='flex';
+    showView('setup');
+  } else if(n==='dashboard') {
     if(dp) dp.style.display='flex';
     showView('dashboard');
   } else if(n==='debate') {
@@ -1229,6 +1492,12 @@ function showModal() {
 }
 document.getElementById('lm').addEventListener('click', function(e) {
   if(e.target===this) this.style.display='none';
+});
+document.getElementById('nam').addEventListener('click', function(e) {
+  if(e.target===this) closeNewAnalysis();
+});
+document.addEventListener('keydown', function(e) {
+  if(e.key==='Escape') closeNewAnalysis();
 });
 
 // Wire left sidebar items for ragas/compare
